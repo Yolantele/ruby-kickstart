@@ -4,6 +4,9 @@
 # it should have a method blogs which returns an array of all blogs the user has written
 # they should be in reverse chronological order (newest first)
 #
+# it should have a method blogs which returns an array of all blogs the user has written
+# they should be in reverse chronological order (newest first)
+
 # Define a class called Blog that could be used to store an entry for your web log.
 # The class should have a getter and setter methods: text , date , user
 # its initialize method should receive the date, user , and text
@@ -15,7 +18,47 @@
 #        return self.date == other.date
 #      end
 
+require 'date'
 
+ class User
+   attr_accessor :username, :blogs
+
+   def initialize (username)
+     self.username = username
+     self.blogs = []
+   end
+
+   def add_blog (date, text)
+   added_blog = Blog.new(date, self, text)
+   blogs << added_blog
+   self.blogs = blogs.sort_by {|blog| blog.date}.reverse
+   added_blog
+   end
+end
+
+
+class Blog
+  attr_accessor :date, :user, :text
+
+  def initialize (date, user, text)
+    self.date, self.user, self.text = date, user, text
+  end
+
+ def summary
+   text.split[0..9].join(' ')
+ end
+
+ def entry
+   "#{user.username} #{date}\n#{text}"
+end
+
+def ==(other)
+  date  == other.date &&
+  user  == other.user &&
+  text  == other.text
+end
+
+end
 
 # ==========  EXAMPLE  ==========
 #
