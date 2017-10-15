@@ -8,3 +8,13 @@
 # staircase 4  # => {1 => [], 3 => [2]}
 # staircase 5  # => {1 => [], 3 => [2], 5 =>[2, 4]}
 
+def staircase(n)
+  to_return = {}
+  1.upto n do |size|
+    next if size.even?
+    all = Array.new(size) {|i| i + 1}
+    evens = all.select {|i| i.even? }
+    to_return[size] = evens
+  end
+  to_return
+end  
